@@ -23,19 +23,19 @@ int main() {
     for (i = 0; i < 8; i++)
         grades[i] = generateNumbers(50, 100); // Generate numbers from 50 - 100
 
-    displayGrades(grades); // Display grades
-
     // use do-while loop to loop operations unless ch == 'F' or exit.    
     do {
+        displayGrades(grades); // Display grades
         ch = operations();
         switch (ch) {
 
             case 'A': // Case 'A' Search for specific grade
             do {
+
                 printf("\nA. Search for Specific Grade\n"); // display choice
                 searchGrade(grades); // search grade function
                 returnCh = askAnother(); // ask if will go to operations or try again
-                printf("\n\n\n-------------------------------------------------------------------------------\n");
+                system("cls");
                 displayGrades(grades); // display grades again
                 printf("\n");
             } while (returnCh == 'N');
@@ -46,7 +46,7 @@ int main() {
                 printf("\nB. Sort Grades\n"); 
                 sortingOptions(grades);
                 returnCh = askAnother();
-                printf("\n\n\n-------------------------------------------------------------------------------\n");
+                system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
@@ -57,7 +57,7 @@ int main() {
                 printf("\nC. Compute the Average Grade\n"); // display choice
                 computeAverage(grades); // compute average function
                 returnCh = askAnother();
-                printf("\n\n\n-------------------------------------------------------------------------------\n");
+                system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
@@ -68,7 +68,7 @@ int main() {
                 printf("\nD. Count Number of PASS Grades");
                 countPass(grades);
                 returnCh = askAnother();
-                printf("\n\n\n-------------------------------------------------------------------------------\n");
+                system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
@@ -79,14 +79,14 @@ int main() {
                 printf("\nE. Count Number of FAIL Grades");
                 countFail(grades);
                 returnCh = askAnother();
-                printf("\n\n\n-------------------------------------------------------------------------------\n");
+                system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
                 break;
 
             case 'F':
-                printf("\n\n\n-------------------------------------------------------------------------------\n");
+                system("cls");
                 exitProgram();
                 return 0;
                 break;
@@ -95,6 +95,7 @@ int main() {
                 printf("Invalid input.");
                 break;
         }
+        system("cls");
     } while (returnCh == 'Y');
 
     return 0;
@@ -152,7 +153,7 @@ void searchGrade(int grades[]) {
 }
 
 void sortingOptions(int grades[]) {
-    int i, j, ch;
+    int i, j, ch, tempGrades[8];
 
     while (1) {
         printf("\nSorting Operations: "); // Loop options if not 1 or 2
@@ -165,30 +166,33 @@ void sortingOptions(int grades[]) {
             break;
     }
 
+    for (i = 0; i < 8; i++)
+        tempGrades[i] = grades[i]; // put values to temporary grade array
+
     switch (ch) {
     case 1:
         printf("\nSort in Ascending Order: \n");
         for (i = 0; i < 7; i++) // bubble sort
             for (j = 0; j < 7 - i; j++)  
-                if (grades[j] > grades[j + 1]) {    // check if grades[j] is greater than grades[j + 1]
-                        int temp = grades[j]; // Swap values if true then continue the loop
-                        grades[j] = grades[j + 1];
-                        grades[j + 1] = temp; 
+                if (tempGrades[j] > tempGrades[j + 1]) {    // check if grades[j] is greater than grades[j + 1]
+                        int temp = tempGrades[j]; // Swap values if true then continue the loop
+                        tempGrades[j] = tempGrades[j + 1];
+                        tempGrades[j + 1] = temp; 
                 }
         for (i = 0; i < 8; i++) // Display grades 
-            printf("%d\t", grades[i]);
+            printf("%d\t", tempGrades[i]);
         break;
     case 2:
         printf("\nSort in Descending Order: \n");
         for (i = 0; i < 7; i++) 
             for (j = 0; j < 7 - i; j++) 
-                if (grades[j] < grades[j + 1]) {    // check if grades[j] is less than grades[j + 1]
-                        int temp = grades[j]; // Swap values if true then continue the loop
-                        grades[j] = grades[j + 1];
-                        grades[j + 1] = temp;
+                if (tempGrades[j] < tempGrades[j + 1]) {    // check if grades[j] is less than grades[j + 1]
+                        int temp = tempGrades[j]; // Swap values if true then continue the loop
+                        tempGrades[j] = tempGrades[j + 1];
+                        tempGrades[j + 1] = temp;
                 }
         for (i = 0; i < 8; i++) // Display grades 
-            printf("%d\t", grades[i]);
+            printf("%d\t", tempGrades[i]);
         break;
     default:
         break;
