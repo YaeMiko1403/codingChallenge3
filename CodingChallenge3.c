@@ -17,7 +17,7 @@ char askAnother();
 int main() {
 
     system("cls");
-    int grades[8], i; // Declare variable
+    int grades[8], i; // Declare variables
     char ch, returnCh;
 
     for (i = 0; i < 8; i++)
@@ -26,73 +26,64 @@ int main() {
     // use do-while loop to loop operations unless ch == 'F' or exit.    
     do {
         displayGrades(grades); // Display grades
-        ch = operations();
+        ch = operations(); 
         switch (ch) {
-
             case 'A': // Case 'A' Search for specific grade
             do {
-
-                printf("\nA. Search for Specific Grade\n"); // display choice
-                searchGrade(grades); // search grade function
+                printf("\nA. Search for Specific Grade\n"); 
+                searchGrade(grades); // function call
                 returnCh = askAnother(); // ask if will go to operations or try again
-                system("cls");
+                system("cls"); 
                 displayGrades(grades); // display grades again
                 printf("\n");
             } while (returnCh == 'N');
                 break;
-
             case 'B':
             do {
                 printf("\nB. Sort Grades\n"); 
-                sortingOptions(grades);
-                returnCh = askAnother();
+                sortingOptions(grades); // function call
+                returnCh = askAnother(); 
                 system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
                 break;
-
             case 'C':
             do {
-                printf("\nC. Compute the Average Grade\n"); // display choice
-                computeAverage(grades); // compute average function
-                returnCh = askAnother();
+                printf("\nC. Compute the Average Grade\n"); 
+                computeAverage(grades); // function call
+                returnCh = askAnother(); 
                 system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
                 break;
-
             case 'D':
             do {
                 printf("\nD. Count Number of PASS Grades");
-                countPass(grades);
+                countPass(grades); // function call
                 returnCh = askAnother();
                 system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
                 break;
-
             case 'E':
             do {
                 printf("\nE. Count Number of FAIL Grades");
-                countFail(grades);
-                returnCh = askAnother();
+                countFail(grades); // function call
+                returnCh = askAnother(); 
                 system("cls");
                 displayGrades(grades);
                 printf("\n");
             } while (returnCh == 'N');
                 break;
-
             case 'F':
                 system("cls");
                 exitProgram();
                 return 0;
                 break;
-
             default:
-                printf("Invalid input.");
                 break;
         }
         system("cls");
@@ -101,13 +92,12 @@ int main() {
     return 0;
 }
 
-// Function Definition
-
+// Function Definitions
 char operations() {
     char ch;
 
     while (1) {
-        printf("\n\nOperations:"); // Declare operations
+        printf("\n\nOperations:"); 
         printf("\nA. Search for Specific Grade");
         printf("\nB. Sort Grades");
         printf("\nC. Compute the Average Grade");
@@ -117,11 +107,11 @@ char operations() {
         printf("\nEnter the letter that corresponds to the operation: ");
         scanf(" %c", &ch);
 
-        ch = toupper(ch);
-        if (ch == 'A' || ch == 'B' || ch == 'C' || ch == 'D' || ch == 'E' || ch == 'F')
-            break;
+        ch = toupper(ch); // convert to uppercase
+        if (ch == 'A' || ch == 'B' || ch == 'C' || ch == 'D' || ch == 'E' || ch == 'F') 
+            break; // break the loop if ch is equal to choices
     }
-    return ch;
+    return ch; 
 }
 
 void displayGrades(int grades[]) {
@@ -153,16 +143,17 @@ void searchGrade(int grades[]) {
 }
 
 void sortingOptions(int grades[]) {
-    int i, j, ch, tempGrades[8];
+    int i, j, tempGrades[8];
+    char ch;
 
     while (1) {
-        printf("\nSorting Operations: "); // Loop options if not 1 or 2
+        printf("\nSorting Operations: "); 
         printf("\n[1] Ascending");
         printf("\n[2] Descending");
         printf("\nEnter operation: ");
-        scanf("%d", &ch);
+        scanf(" %c", &ch);
 
-        if (ch == 1 || ch == 2)
+        if (ch == '1' || ch == '2')
             break;
     }
 
@@ -170,9 +161,10 @@ void sortingOptions(int grades[]) {
         tempGrades[i] = grades[i]; // put values to temporary grade array
 
     switch (ch) {
-    case 1:
+        /* Bubble sort */
+    case '1':
         printf("\nSort in Ascending Order: \n");
-        for (i = 0; i < 7; i++) // bubble sort
+        for (i = 0; i < 7; i++) 
             for (j = 0; j < 7 - i; j++)  
                 if (tempGrades[j] > tempGrades[j + 1]) {    // check if grades[j] is greater than grades[j + 1]
                         int temp = tempGrades[j]; // Swap values if true then continue the loop
@@ -182,7 +174,7 @@ void sortingOptions(int grades[]) {
         for (i = 0; i < 8; i++) // Display grades 
             printf("%d\t", tempGrades[i]);
         break;
-    case 2:
+    case '2':
         printf("\nSort in Descending Order: \n");
         for (i = 0; i < 7; i++) 
             for (j = 0; j < 7 - i; j++) 
@@ -200,13 +192,13 @@ void sortingOptions(int grades[]) {
 }
 
 void computeAverage(int grades[]) {
-    int i, sum = 0, ave; // declare variables
+    int i, sum = 0, ave; 
 
     for (i = 0; i < 8; i++)
-        sum += grades[i];  // assign value of sum to the sum of each value in the array
+        sum += grades[i];  
 
-    ave = sum / 8; // divide sum from 8 to get the average
-    printf("\nAverage grade: %d%%", ave); // display average
+    ave = sum / 8; 
+    printf("\nAverage grade: %d%%", ave); 
 }
 
 void countPass(int grades[]) {
@@ -214,10 +206,10 @@ void countPass(int grades[]) {
 
     for (i = 0; i < 8; i++)
     {
-        if (grades[i] <= 100 && grades[i] >= 75) // check if grades array is less than or equal to 100 and is greater than or equal to 75
-            count++; // inc count if true
+        if (grades[i] <= 100 && grades[i] >= 75) 
+            count++; 
     }
-    printf("\n\nCount: %d", count); // display pass count
+    printf("\n\nCount: %d", count); 
 }
 
 void countFail(int grades[]) {
@@ -225,10 +217,10 @@ void countFail(int grades[]) {
 
     for (i = 0; i < 8; i++)
     {
-        if (grades[i] <= 74 && grades[i] >= 50) // check if grades array is less than or equal to 74 and is greater than or equal to 50
-            count++; // inc count if true
+        if (grades[i] <= 74 && grades[i] >= 50) 
+            count++; 
     }
-    printf("\n\nCount: %d", count); // display fail count
+    printf("\n\nCount: %d", count); 
 }
 
 void exitProgram() {
@@ -239,14 +231,14 @@ char askAnother() {
     char ch;
 
     while (1) {
-        printf("\n\nPress Y to return to Operations, press N to try again: "); // option to exit or try again
+        printf("\n\nPress Y to return to Operations, press N to try again: "); 
         scanf(" %c", &ch);
 
         ch = toupper(ch); // convert character to uppercase
 
-        if (ch == 'Y' || ch == 'N') // check if ch is equal to y or n, if not, continue the loop
+        if (ch == 'Y' || ch == 'N') 
             break;
     }
-    return ch; // return value of ch
+    return ch; 
 }
 
